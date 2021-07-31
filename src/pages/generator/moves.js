@@ -11,12 +11,14 @@ const Moves = (props) => {
     const path = props.match.params.playbook
     useEffect(() => {
         props.apiCall(`/playbooks/${path}`)}, [])
+        
+    let newMoves = []
 
     // Once api call has completed:        
     const loaded = () => {
         const moves = props.apiData.moves
         // stage stand-in array
-        let newMoves = props.newChar.moves.playbook 
+        newMoves = [...props.newChar.moves.playbook]
         
         
         // function to populate required moves and add them to stand-in (if there are any)
@@ -36,7 +38,7 @@ const Moves = (props) => {
             const buttonBig = [<h3>{item.name}</h3>, <p>{item.description}</p>]
             let buttonText = buttonBig
             //handler function
-            const handleClick = () => {
+            const chooseMoves = () => {
                 if (newMoves.includes(item.name) === true) {
                     newMoves = newMoves.filter((i, d) => (i != item.name))
                 } else if (newMoves.length >= (moves.required_move_slots + moves.optional_move_slots) && newMoves.includes(item.name) === false) {
@@ -45,10 +47,11 @@ const Moves = (props) => {
                 } else if (newMoves.includes(item.name) === false) {
                     newMoves.push(item.name)
                 }
+                console.log(props.newChar.moves.playbook)
                 //// buttonText == buttonSmall ? buttonText = buttonBig : buttonText = buttonSmall
             }
             //the Component being mapped
-            return <Button className={'optional-moves'} handleClick={handleClick} key={index} text={buttonText} />
+            return <Button className={'optional-moves'} handleClick={chooseMoves} key={index} text={buttonText} />
         })
         // calling the two maps:
         return (
@@ -71,12 +74,18 @@ const Moves = (props) => {
         )
     }
 
+    const submit = () => {
+        props.updateChar({...props.newChar, moves:{...props.newChar.moves, playbook:newMoves}})
+        props.apiCall()
+        console.log(props.newChar)
+    }
+
     return(
         <div>
             <h2>The {path.charAt(0).toUpperCase()+path.slice(1)} Moves</h2>
             {props.apiData ? loaded() : loading()}
             <Link to={`/${props.newChar.path}/ratings`} >
-                <Button handleClick={props.apiCall} text='next'/>
+                <Button handleClick={submit} text='next'/>
             </Link>
         </div>
     )

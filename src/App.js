@@ -12,17 +12,19 @@ import Nav from './components/nav';
 
 function App() {
 
-  const [apiData, setApiData] = useState(null)
+  const [apiData, setApiData] = useState({origin: null, data: null})
 
   const apiCall = async (path) => {
-    if (apiData) {
-      setApiData(null)
-    } else {
+    // if (apiData) {
+    //   setApiData(null)
+    // } else {
       const api = `https://motwapi.com/api/v1/${path}`
       const response = await fetch(api)
+      // console.log('response:', response)
       const data = await response.json()
-      setApiData(data)
-    }
+      setApiData({origin: path, data: data})
+      console.log('path:', path, '// apiData:', apiData)
+    // }
   }
   
   const [newChar, setNewChar] = useState({
@@ -56,22 +58,22 @@ function App() {
       <Nav newChar={newChar} apiCall={apiCall} />
       <Switch>
         <Route path='/playbooks'>
-          <Playbooks apiData={apiData} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />    
+          <Playbooks apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />    
         </Route>
         <Route
           path='/:playbook/moves'
           render={(routerProps) => {
-            return <Moves {...routerProps} apiData={apiData} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
+            return <Moves {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
           }}
           />
         <Route
           path='/:playbook/ratings'
           render={(routerProps) => {
-            return <Ratings {...routerProps} apiData={apiData} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
+            return <Ratings {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
           }}
           />
         {/* <Route path={`/${newChar.path}/moves`} >
-          <Moves apiData={apiData} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />    
+          <Moves apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />    
         </Route> */}
       </Switch>
       
