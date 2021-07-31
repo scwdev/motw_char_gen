@@ -2,8 +2,8 @@
 
 ## Project Links
 
-- [add your github repo link]()
-- [add your deployment link]()
+- [github repo link](https://github.com/scwdev/motw_char_gen)
+- [deployment link]()
 
 ## Project Description
 
