@@ -17,6 +17,9 @@ const Nav = (props) => {
             <Link to={`/${props.newChar.path}/gear`}>
                 Gear
             </Link>
+            <Link to={`/${props.newChar.path}/details`}>
+                Details
+            </Link>
             {/* <Link>
                 
             </Link> */}

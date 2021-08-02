@@ -7,6 +7,7 @@ import Playbooks from './pages/generator/playbooks';
 import Moves from './pages/generator/moves';
 import Ratings from './pages/generator/ratings';
 import Gear from './pages/generator/gear'
+import Details from './pages/generator/details';
 import Nav from './components/nav';
 
 
@@ -42,8 +43,7 @@ function App() {
         notes: null
       },
       gear: {
-        weapons: null,
-        other: null,
+        playbook: [],
         notes: null
       },
       ratings: null,
@@ -79,6 +79,12 @@ function App() {
             return <Gear {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
           }}
           />
+        <Route
+        path='/:playbook/details'
+        render={(routerProps) => {
+          return <Details {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
+        }}
+        />
       </Switch>
       
       
