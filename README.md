@@ -3,21 +3,34 @@
 ## Project Links
 
 - [github repo link](https://github.com/scwdev/motw_char_gen)
-- [deployment link]()
+- [deployment link](https://motw-char-gen.vercel.app/)
 
 ## Project Description
-
-Use this section to describe your final project and perhaps any links to relevant sites that help convey the concept and\or functionality.
+Using the [D&DBeyond](https://www.dndbeyond.com) character generator as a template for a Monster of the Week character generator. User will be able to move through the steps of choosing character options and then seeing their newly made character as a (printable?) one-sheet.
 
 ## API
 
-Use this section to include info about the API you have chosen and a code snippet of the data that it returns and is required for your project. 
-
+Found a fanmade API for MotW [here](https://motwapi.com/).
 
 ```
-{data: {} }
+{
+  "index": "chosen",
+  "name": "The Chosen",
+  "luck_special": "When you spend a point of Luck, the Keeper will bring your fate into play.",
+  "moves": {
+    "required_move_slots": 2,
+    "required_moves": [
+      {
+        "name": "Destiny’s Plaything",
+        "description": "At the beginning of each mystery, roll +Weird to see what is revealed about your immediate future. On a 10+, the Keeper will reveal a useful detail about the coming mystery. On a 7-9 you get a vague hint about it. On a miss, something bad is going to happen to you."
+      },
+      {
+        "name": "I’m Here For A Reason",
+        "description": "There’s something you are destined to do. Work out the details with the Keeper, based on your fate. You cannot die until it comes to pass. If you die in play, then you must spend a Luck point. You will then, somehow, recover or be returned to life. Once your task is done (or you use up all your Luck), all bets are off."
+      }
+    ],
 ```
-
+etc.
 
 ## Wireframes
 
