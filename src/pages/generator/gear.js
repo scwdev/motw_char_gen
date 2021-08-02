@@ -27,9 +27,6 @@ const Gear = (props) => {
             gearArr.splice(1,1,1,carArr)
         }
 
-        
-        console.log('render: ',newGear.toString())
-
         let position = 0
         let limit = 0
         let addGear = (entry, position, limit) => {
@@ -68,7 +65,7 @@ const Gear = (props) => {
                         let tag = z.tags.map(tag => tag.name).toString()
                         let text = `${z.name}${z.harm !== null ? `, harm: ${z.harm}` : ""}${tag !== "" ? `, tags: ${tag}` : ""}`
                         return (
-                            <Button key={index} text={text} handleClick={() => {addGear(text,internalPosition,internalLimit)}} />
+                            <Button key={index} text={text} handleClick={() => {addGear(z,internalPosition,internalLimit)}} />
                         )
                     } else if (typeof z === 'string') {
                         let text = z
