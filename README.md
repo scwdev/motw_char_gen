@@ -62,16 +62,19 @@ etc.
 | Footer | attribution |
 | Button | basic selection method for form. text and functionality handed down through props |
 
-Time frames are also key in the development cycle.  You have limited time to code all phases of the game.  Your estimates can then be used to evalute game possibilities based on time needed and the actual time you have before game must be submitted. It's always best to pad the time by a few hours so that you account for the unknown so add and additional hour or two to each component to play it safe. Also, put a gif at the top of your Readme before you pitch, and you'll get a panda prize.
 
 | Component | Priority | Estimated Time | Time Invetsted | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
-| Adding Form | H | 3hrs| 3.5hrs | 3.5hrs |
-| Working with API | H | 3hrs| 2.5hrs | 2.5hrs |
+| Creating file structure | H | 2hrs| 3hrs | 3hrs |
+| Creating states | H | 2hrs | 2.5hrs | 2.5hrs |
+| each gen page | H | 2hrs (total 14hrs) | 6hrs | ?? |
+| contentful data | M | 2hrs | ?? | ?? |
+| finished char page | H | 3hrs | ?? | ?? |
+| Styling | L | 3hrs | ?? | ?? |
 | Total | H | 6hrs| 5hrs | 5hrs |
 
 ## Additional Libraries
- Use this section to list all supporting libraries and thier role in the project such as Axios, ReactStrap, D3, etc. 
+Probably Sass.
 
 ## Code Snippet
 
