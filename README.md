@@ -1,5 +1,7 @@
 # Project Overview
 
+![buffy!](https://media.giphy.com/media/ymBQi6ePLEDiU/giphy.gif)
+
 ## Project Links
 
 - [github repo link](https://github.com/scwdev/motw_char_gen)
@@ -32,38 +34,33 @@ Found a fanmade API for MotW [here](https://motwapi.com/).
 ```
 etc.
 
-## Wireframes
+## Wireframe/Architecture
 
-Upload images of wireframe to cloudinary and add the link here with a description of the specific wireframe. Also, define the the React components and the architectural design of your app.
-
-- [add link to your wireframes]()
-- [add link to your react architecture]()
-
+- [wireframe](https://res.cloudinary.com/scwd/image/upload/v1627915434/motw_char_gen/wireframe_bu9ukk.jpg)
+- [architecture](https://res.cloudinary.com/scwd/image/upload/v1627915993/motw_char_gen/architecture_zryky5.jpg)
 
 ### MVP/PostMVP - 5min
 
-The functionality will then be divided into two separate lists: MPV and PostMVP.  Carefully decided what is placed into your MVP as the client will expect this functionality to be implemented upon project completion.  
-
 #### MVP EXAMPLE
-- Find and use external api 
-- Render data on page 
-- Allow user to interact with the page
+- Allow user to move through choices with a fully built character state at completion
+- Finished character interface
+- Prompt text to move user through pages
 
 #### PostMVP EXAMPLE
 
-- Add localStorage or firebase for storage
+- Add storage for multiple characters
+- Add login functionality
+- Add basic moves
+- Sass
 
 ## Components
-##### Writing out your components and its descriptions isn't a required part of the proposal but can be helpful.
-
-Based on the initial logic defined in the previous sections try and breakdown the logic further into stateless/stateful components. 
 
 | Component | Description | 
 | --- | :---: |  
-| App | This will make the initial data pull and include React Router| 
-| Header | This will render the header include the nav | 
-| Footer | This will render the header include the nav | 
-
+| App | Stateful. Stores the apiCalls and the character as it is built| 
+| Header | responsive nav and information on progress | 
+| Footer | attribution |
+| Button | basic selection method for form. text and functionality handed down through props |
 
 Time frames are also key in the development cycle.  You have limited time to code all phases of the game.  Your estimates can then be used to evalute game possibilities based on time needed and the actual time you have before game must be submitted. It's always best to pad the time by a few hours so that you account for the unknown so add and additional hour or two to each component to play it safe. Also, put a gif at the top of your Readme before you pitch, and you'll get a panda prize.
 
