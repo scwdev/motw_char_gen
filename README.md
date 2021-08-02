@@ -71,7 +71,7 @@ etc.
 | contentful data | M | 2hrs | ?? | ?? |
 | finished char page | H | 3hrs | ?? | ?? |
 | Styling | L | 3hrs | ?? | ?? |
-| Total | H | 6hrs| 5hrs | 5hrs |
+| Total | H | 26hrs| ?? | ?? |
 
 ## Additional Libraries
 Probably Sass.
