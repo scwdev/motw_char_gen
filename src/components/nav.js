@@ -5,14 +5,17 @@ const Nav = (props) => {
     
     return(
         <nav>
-            <Link to='/playbooks' onClick={props.apiCall}>
+            <Link to='/playbooks'>
                 Playbooks
             </Link>
-            <Link to={`/${props.newChar.path}/moves`} onClick={props.apiCall}>
+            <Link to={`/${props.newChar.path}/moves`}>
                 Moves
             </Link>
-            <Link to={`/${props.newChar.path}/ratings`} onClick={props.apiCall}>
+            <Link to={`/${props.newChar.path}/ratings`}>
                 Ratings
+            </Link>
+            <Link to={`/${props.newChar.path}/gear`}>
+                Gear
             </Link>
             {/* <Link>
                 

@@ -3,11 +3,15 @@ import { Link } from 'react-router-dom'
 import Button from '../../components/button'
 
 const Ratings = (props) => {
+    
+    const path = `/playbooks/${props.match.params.playbook}`
+    useEffect(() => {props.apiOrigin != path ?  props.apiCall(path) : console.log('already loaded')}, [])
+    
     let ratings = null
 
-    const path = props.match.params.playbook    
-    useEffect(() => {
-        props.apiCall(`/playbooks/${path}`)}, [])
+    // const path = props.match.params.playbook    
+    // useEffect(() => {
+    //     props.apiCall(`/playbooks/${path}`)}, [])
 
     const loading = () => {return 'Loading...'}
     const loaded = () => {
@@ -34,8 +38,9 @@ const Ratings = (props) => {
     return(
         <div>
             <h2>Ratings Componenet</h2>
-            {props.apiData ? loaded() : loading()}
-            <Link to={`/${path}/gear`} >
+            {props.apiOrigin === path ? loaded() : loading()}
+            {/* {props.apiData ? loaded() : loading()} */}
+            <Link to={`/${props.newChar.path}/gear`} >
                 <Button handleClick={submit} text='next'/>
             </Link>
         </div>

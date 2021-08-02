@@ -8,9 +8,12 @@ import Button from '../../components/button'
 const Moves = (props) => {
 
     //page content currently based on path, not on newChar playbook. Could be a problem
-    const path = props.match.params.playbook
-    useEffect(() => {
-        props.apiCall(`/playbooks/${path}`)}, [])
+    const path = `/playbooks/${props.match.params.playbook}`
+    useEffect(() => {props.apiOrigin != path ?  props.apiCall(path) : console.log('already loaded')}, [])
+
+    // const path = props.match.params.playbook
+    // useEffect(() => {
+    //     props.apiCall(`/playbooks/${path}`)}, [])
         
     let newMoves = []
 
@@ -83,7 +86,8 @@ const Moves = (props) => {
     return(
         <div>
             <h2>The {path.charAt(0).toUpperCase()+path.slice(1)} Moves</h2>
-            {props.apiData ? loaded() : loading()}
+            {props.apiOrigin === path ? loaded() : loading()}
+            {/* {props.apiData ? loaded() : loading()} */}
             <Link to={`/${props.newChar.path}/ratings`} >
                 <Button handleClick={submit} text='next'/>
             </Link>

@@ -6,6 +6,7 @@ import './App.css';
 import Playbooks from './pages/generator/playbooks';
 import Moves from './pages/generator/moves';
 import Ratings from './pages/generator/ratings';
+import Gear from './pages/generator/gear'
 import Nav from './components/nav';
 
 
@@ -23,7 +24,7 @@ function App() {
       // console.log('response:', response)
       const data = await response.json()
       setApiData({origin: path, data: data})
-      console.log('path:', path, '// apiData:', apiData)
+      // console.log('path:', path, '// apiData:', apiData)
     // }
   }
   
@@ -72,9 +73,12 @@ function App() {
             return <Ratings {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
           }}
           />
-        {/* <Route path={`/${newChar.path}/moves`} >
-          <Moves apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />    
-        </Route> */}
+        <Route
+          path='/:playbook/gear'
+          render={(routerProps) => {
+            return <Gear {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
+          }}
+          />
       </Switch>
       
       
