@@ -9,6 +9,7 @@ import Ratings from './pages/generator/ratings';
 import Gear from './pages/generator/gear'
 import Details from './pages/generator/details';
 import History from './pages/generator/history'
+import Specials from './pages/generator/specials';
 import Nav from './components/nav';
 
 
@@ -91,6 +92,12 @@ function App() {
         path='/:playbook/history'
         render={(routerProps) => {
           return <History {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
+        }}
+        />
+        <Route
+        path='/:playbook/specials'
+        render={(routerProps) => {
+          return <Specials {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
         }}
         />
       </Switch>

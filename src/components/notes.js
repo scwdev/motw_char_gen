@@ -10,7 +10,7 @@ const Notes = (props) => {
 
     const notes = 
         <>
-            <input onChange={handleChange} type='text' id={props.id} name={props.name} value={props.value} />
+            <input onChange={handleChange} type='text' id={props.id} name={props.name} placeholder={props.placeholder} value={props.value} />
         </>
     
     return (

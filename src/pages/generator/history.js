@@ -7,7 +7,6 @@ import Notes from '../../components/notes'
 import Submit from '../../components/submit'
 
 const History = (props) => {
-    const [playerCount, setPlayerCount] = useState(props.newChar.history.length)
     const [newEntry, setNewEntry] = useState({name:'', relationship: null, notes: null})
 
     const path = `/playbooks/${props.match.params.playbook}`
@@ -16,31 +15,27 @@ const History = (props) => {
     const loading = () => {return 'Loading...'}
 
     const loaded = () => {
-        const historyArr = [...props.newChar.history]
+        let historyArr = [...props.newChar.history]
 
-        const handleRadio = (input) => {
-            setNewEntry({...newEntry, relationship: input})
-        }
-        const handleName = (input) => {
-            setNewEntry({...newEntry, name:input})
-        }
-        const handleNotes = (input) => {
-            setNewEntry({...newEntry, notes:input})
-        }
+        const handleRadio = (input) => setNewEntry({...newEntry, relationship: input})
+        const handleName = (input) => setNewEntry({...newEntry, name:input})
+        const handleNotes = (input) => setNewEntry({...newEntry, notes:input})
 
         const handleSubmit = (event) => {
             event.preventDefault()
-            console.log(newEntry)
+            historyArr=[...historyArr, newEntry]
+            props.updateChar({...props.newChar, history:historyArr})
         }
 
         const newRelationship = () => {
-            const name = <Notes handleChange={handleName} value={newEntry.name} />
+
+            const name = <Notes handleChange={handleName} value={newEntry.name} placeholder="Hunter name" />
             const relationship = props.apiData?.history?.map((item,index) => {
                 return <Radio key={index} handleChange={handleRadio} id={item} name='history' value={item} text={item} />
             })
-            const notes = <Notes handleChange={handleNotes} value={newEntry.notes} />
-            const submit = <Submit value='Add Relationship' handleSubmit={handleSubmit} />
+            const notes = <Notes handleChange={handleNotes} value={newEntry.notes} placeholder='Additional details...' />
             
+            const submit = <Submit value='Add Relationship' handleSubmit={handleSubmit} />
             
             return (
                 <form>
@@ -50,21 +45,41 @@ const History = (props) => {
                     <input type='submit' onClick={handleSubmit}/>
                 </form>
             )
-            }
+        }
         
+        const existingRelationships = () => {
+            return historyArr.map((item,index) => {
+                console.log(item)
+                return(
+                    <div>
+                        <h3>{item.name}</h3>
+                        <h5>{item.relationship}</h5>
+                        <p>{item.notes}</p>
+                    </div>
+                )
+            })
+        }
 
         return(
             <>
                 {newRelationship()}
+                {existingRelationships()}
             </>
-            
         )
+    }
+
+    const nextPage = () => {
+
     }
 
     return(
         <div>
             <h2>History Componenet</h2>
             {props.apiOrigin === path ? loaded() : loading()}
+            <Link to={`/${props.newChar.path}/specials`} >
+                <Button handleClick={nextPage} text='next'/>
+            </Link>
+            
         </div>
     )
 }

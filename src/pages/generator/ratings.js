@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../../components/button'
-import Radio from '../../components/Radio'
+import Radio from '../../components/radio'
 
 const Ratings = (props) => {
     

@@ -5,7 +5,8 @@ const Radio = (props) => {
 
     const checked = null
     const handleChange = () => {
-        props.handleChange(props.value)
+        if (props.handleChange) props.handleChange(props.value)
+        else console.log('radio needs a function')
     }
 
     const radio = 
