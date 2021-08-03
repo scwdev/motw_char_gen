@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../../components/button'
+import Radio from '../../components/Radio'
 
 const Ratings = (props) => {
     
@@ -22,7 +23,7 @@ const Ratings = (props) => {
                     ratings = option
                 }
                 return (
-                    <Button key={index} handleClick={updateRatings} text={
+                    <Radio key={index} handleClick={updateRatings} text={
                         `Charm: ${option.charm}, Cool: ${option.cool}, Sharp: ${option.sharp}, Tough: ${option.tough}, Weird: ${option.weird}`} />
                 )
             })

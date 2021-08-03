@@ -1,10 +1,16 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { Link } from 'react-router-dom'
 
 import Button from '../../components/button'
+import Radio from '../../components/Radio'
+import Submit from '../../components/submit'
 
 const History = (props) => {
     const [playerCount, setPlayerCount] = useState(props.newChar.history.length)
+
+    const inputRefRelationship = useRef()
+    const inputRefName = useRef()
+    const inputRefNotes = useRef()
 
     const path = `/playbooks/${props.match.params.playbook}`
     useEffect(() => {props.apiOrigin != path ?  props.apiCall(path) : console.log('already loaded')}, [])
@@ -13,40 +19,31 @@ const History = (props) => {
 
     const loaded = () => {
         const historyArr = [...props.newChar.history]
-        
-        const entries = historyArr.map((item, index) => {
-            if (item.relationship != 'placeholder') {
-                console.log(item.relationship)
-                return (
-                    <div>
-                        <h4>{item.player}</h4>
-                        <h5>{item.relationship}</h5>
-                        <p>{item.notes}</p>
-                    </div>
-                ) 
-            } else {return props.apiData.history.map((item,index) => {
-                return <Button text={item}/>
-                // })
-                //     <div>
-                //         <form>
-                            
-                //         </form>
-                //     </div>
-                // )
-            })}
-        })
-        
-            
-        const addEntry = () => {
-            setPlayerCount(playerCount+1)
-            props.updateChar({...props.newChar, history:[...props.newChar.history, {index: playerCount, player: '', relationship: 'placeholder', notes: ''}]})
 
-        }
+        const newRelationship = () => {
+            const map = props.apiData?.history?.map((item,index) => {
+                return (
+                <div ref={inputRefRelationship} >
+                    <Radio id={item} name='history' text={item} />
+                </div>)
+            })
+            const handleSubmit = () => {console.log(inputRefRelationship)}
+            const submit = <Submit value='Add Relationship' handleSubmit={handleSubmit} />
+            
+            return (
+                <form>
+                    {map}
+                    {submit}
+                </form>
+            )
+            }
+        
+
         return(
             <>
-                <Button handleClick={addEntry} text='add entry'/>
-                {entries}
+                {newRelationship()}
             </>
+            
         )
     }
 
