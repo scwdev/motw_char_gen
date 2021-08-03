@@ -8,6 +8,7 @@ import Moves from './pages/generator/moves';
 import Ratings from './pages/generator/ratings';
 import Gear from './pages/generator/gear'
 import Details from './pages/generator/details';
+import History from './pages/generator/history'
 import Nav from './components/nav';
 
 
@@ -47,7 +48,7 @@ function App() {
         notes: null
       },
       ratings: null,
-      history: null,
+      history: [],
       path: null
     })
 
@@ -83,6 +84,12 @@ function App() {
         path='/:playbook/details'
         render={(routerProps) => {
           return <Details {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
+        }}
+        />
+        <Route
+        path='/:playbook/history'
+        render={(routerProps) => {
+          return <History {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
         }}
         />
       </Switch>
