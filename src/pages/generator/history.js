@@ -1,16 +1,14 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 
 import Button from '../../components/button'
-import Radio from '../../components/Radio'
+import Radio from '../../components/radio'
+import Notes from '../../components/notes'
 import Submit from '../../components/submit'
 
 const History = (props) => {
     const [playerCount, setPlayerCount] = useState(props.newChar.history.length)
-
-    const inputRefRelationship = useRef()
-    const inputRefName = useRef()
-    const inputRefNotes = useRef()
+    const [newEntry, setNewEntry] = useState({name:'', relationship: null, notes: null})
 
     const path = `/playbooks/${props.match.params.playbook}`
     useEffect(() => {props.apiOrigin != path ?  props.apiCall(path) : console.log('already loaded')}, [])
@@ -20,20 +18,36 @@ const History = (props) => {
     const loaded = () => {
         const historyArr = [...props.newChar.history]
 
+        const handleRadio = (input) => {
+            setNewEntry({...newEntry, relationship: input})
+        }
+        const handleName = (input) => {
+            setNewEntry({...newEntry, name:input})
+        }
+        const handleNotes = (input) => {
+            setNewEntry({...newEntry, notes:input})
+        }
+
+        const handleSubmit = (event) => {
+            event.preventDefault()
+            console.log(newEntry)
+        }
+
         const newRelationship = () => {
-            const map = props.apiData?.history?.map((item,index) => {
-                return (
-                <div ref={inputRefRelationship} >
-                    <Radio id={item} name='history' text={item} />
-                </div>)
+            const name = <Notes handleChange={handleName} value={newEntry.name} />
+            const relationship = props.apiData?.history?.map((item,index) => {
+                return <Radio key={index} handleChange={handleRadio} id={item} name='history' value={item} text={item} />
             })
-            const handleSubmit = () => {console.log(inputRefRelationship)}
+            const notes = <Notes handleChange={handleNotes} value={newEntry.notes} />
             const submit = <Submit value='Add Relationship' handleSubmit={handleSubmit} />
+            
             
             return (
                 <form>
-                    {map}
-                    {submit}
+                    {name}
+                    {relationship}
+                    {notes}
+                    <input type='submit' onClick={handleSubmit}/>
                 </form>
             )
             }
