@@ -21,10 +21,11 @@ const Ratings = (props) => {
             props.apiData.ratings.map((option,index) => {
                 const updateRatings = () => {
                     ratings = option
+                    console.log(text)
                 }
+                const text = `Charm: ${option.charm}, Cool: ${option.cool}, Sharp: ${option.sharp}, Tough: ${option.tough}, Weird: ${option.weird}`
                 return (
-                    <Radio key={index} handleClick={updateRatings} text={
-                        `Charm: ${option.charm}, Cool: ${option.cool}, Sharp: ${option.sharp}, Tough: ${option.tough}, Weird: ${option.weird}`} />
+                    <Radio id={`rating ${index}`} name='ratings' key={index} handleChange={updateRatings} value={option} text={text} />
                 )
             })
         )
@@ -32,8 +33,6 @@ const Ratings = (props) => {
 
     const submit = () => {
         props.updateChar({...props.newChar, ratings: ratings})
-        props.apiCall()
-        console.log(props.newChar)
     }
 
     return(

@@ -1,37 +1,71 @@
-import React, {useEffect} from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import Radio from '../../components/radio'
 import Button from '../../components/button'
+import Notes from '../../components/notes'
 
 const Details = (props) => {
-
     const path = `/playbooks/${props.match.params.playbook}`
-    useEffect(() => {props.apiOrigin != path ?  props.apiCall(path) : console.log('already loaded')}, [])
+    useEffect(() => {if (props.apiOrigin != path) props.apiCall(path)}, [])
 
-    let newLook = {}
+    const [details, setDetails] = useState(props.newChar.details)
 
     const loading = () => {return 'Loading...'}
     
     const loaded = () => {
-        const lookOptions = Object.entries(props.apiData.look)
+
+        const pronouns = () => {
+            const handlePronouns = (input) => setDetails({...details, pronouns:input})
+            return(
+                <Notes handleChange={handlePronouns} value={details.pronouns} placeholder="Hunter pronouns" />
+            )
+        }
         
-        return (
-            lookOptions.map(subArr => {return subArr.map((section, i, arr) => {
+        const lookMap = () => {
+            const lookOptions = Object.entries(props.apiData.look)
+            let title = null
+            return lookOptions.map(subArr => {return subArr.map((section, i, arr) => {
                 if (typeof section == 'string') {
-                    return <h4>{section}</h4>}
+                    title = section
+                    return <h4>{section}</h4>
+                }
                 else {
                     return section.map((option, index) => {
-                        const addLook = () => newLook[arr[0]] = option
-                        console.log(index)
-                        return <Button key={index} text={option} handleClick={addLook}/>})}
+                        const newLook = {[title]:option}
+                        const addLook = () => {
+                            setDetails({...details, look:{...details.look, ...newLook}})
+                            console.log(details)
+                        }
+                        return <Radio key={`${title}${index}`} handleChange={addLook} id={`${title}${index}`} name={title} value={option} text={option} />
+                    })
+                }
             })})
+        }
+        
+        const notes = () => {
+            const handleNotes = (input) => setDetails({...details, notes:input})
+            return(
+                <Notes handleChange={handleNotes} value={details.notes} placeholder="Hunter notes" />
+            )
+        }
+
+
+        return (
+            <>
+                {pronouns()}
+                {lookMap()}
+                {notes()}
+            </>
         )
     }
 
     const submit = () => {
-        props.updateChar({...props.newChar, details:{...props.newChar.details, look: newLook}})
+        // console.log('submit')
+        props.updateChar({...props.newChar, details:{...details}})
+    //     props.updateChar({...props.newChar, details:{...props.newChar.details, look: newLook}})
         // props.updateChar({...props.newChar, gear:{...props.newChar.gear, playbook: newGear}})
-        console.log('text')
+        // console.log('text')
         // console.log(props.newChar)
     }
 
