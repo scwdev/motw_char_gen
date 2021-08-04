@@ -1,21 +1,22 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 
 import Button from '../../components/button'
+import Checkbox from '../../components/checkbox'
 
 const Gear = (props) => {
+    const [newGear, setNewGear] = useState([...props.newChar.gear.playbook])
 
     const path = `/playbooks/${props.match.params.playbook}`
-    useEffect(() => {props.apiOrigin !== path ? props.apiCall(path) : console.log('same API')}, [])
+    useEffect(() => {if (props.apiOrigin !== path) props.apiCall(path)}, [])
     
     let gearArr = null
-    let newGear = []
 
     const loading = () => {return 'Loading...'}
 
     const loaded = () => {
         gearArr = Object.values(props.apiData.gear)
-
+        console.log(newGear)
         if (props.newChar.path === 'wronged') {
             let armor = `${gearArr[0].name} - armor ${gearArr[0].armour}`
             gearArr.splice(0,1,armor)
@@ -30,50 +31,65 @@ const Gear = (props) => {
         let position = 0
         let limit = 0
         let addGear = (entry, position, limit) => {
-            let subArr = newGear[position]
-
-            if (subArr.includes(entry) === true) {
-                subArr = subArr.filter((i) => (i != entry))
-            } else if (subArr.length >= (limit) && subArr.includes(entry) === false) {
-                subArr.splice(0,1)
-                subArr.push(entry)
-            } else if (subArr.includes(entry) === false) {
-                subArr.push(entry)
+            let arr = [...newGear]
+            let n = position
+            // console.log('arr // ',arr)
+            if (arr[n].includes(entry) === true) {
+                arr[n] = arr[n].filter((i) => (i != entry))
+            } else if (arr[n].length >= (limit) && arr[n].includes(entry) === false) {
+                arr[n].shift()
+                arr[n].push(entry)
+            } else if (arr[n].includes(entry) === false) {
+                arr[n].push(entry)
             }
-            // props.updateChar({...props.newChar, gear:{...props.newChar.gear, playbook:newGear}})
-            console.log('button click', newGear)
+            setNewGear([...arr])
+            props.updateChar({...props.newChar, gear:{...props.newChar.gear, playbook:newGear}})
         }
 
+        
         return(
-            gearArr.map((item, index) => {
+            
+            gearArr.map((arr, b) => {
                 if (props.newChar.path === 'initiate') {
                     return( 'initiate')
+                } 
+                // else if (typeof arr === 'string') {
+                //     return <h3 key={b} >{arr}</h3>
+                // }
+                else if (typeof arr === 'number') {
+                    limit = arr
+                    return <h3 key={b} >Choose {arr}</h3>
+                }
+                else if (typeof arr === 'object') {
+                    
+                    return (arr.map((item, y) => {
+                        let internalLimit = limit
+                        let internalPosition = (b-1)/2
 
-                } else if (typeof item === 'string') {
-                    return <h3 key={index} >{item}</h3>
-                    
-                } else if (typeof item === 'number') {
-                    limit = item
-                    position = newGear.length
-                    newGear.push([])
-                    return <h3 key={index} >Choose {item}</h3>
-                    
-                } else if (typeof item === 'object') {return (item.map((z, index) => {
-                    let internalLimit = limit
-                    let internalPosition = position
-                    if (typeof z === 'object') {
-                        let tag = z.tags.map(tag => tag.name).toString()
-                        let text = `${z.name}${z.harm !== null ? `, harm: ${z.harm}` : ""}${tag !== "" ? `, tags: ${tag}` : ""}`
-                        return (
-                            <Button key={index} text={text} handleClick={() => {addGear(z,internalPosition,internalLimit)}} />
-                        )
-                    } else if (typeof z === 'string') {
-                        let text = z
-                        return (
-                            <Button key={index} text={text} handleClick={() => {addGear(text,internalPosition,internalLimit)}}/>
-                        )
-                    }
-                }))}
+                        let checked = () => {
+                            if (newGear[internalPosition].includes(item)) {
+                                return true
+                            }
+                        }
+
+                        if (newGear.length < internalPosition+1) {
+                            setNewGear([...newGear, []])
+                        }
+                        if (typeof item === 'object') {
+                            let tag = item.tags.map(tag => tag.name).toString()
+                            let text = `${item.name}${item.harm !== null ? `, harm: ${item.harm}` : ""}${tag !== "" ? `, tags: ${tag}` : ""}`
+                            return (
+                                <Checkbox key={item.name} id={item.name} name={`gear${b}`} text={text} handleChange={() => {addGear(item,internalPosition,internalLimit)}} checked={checked} />
+                            )
+                        }
+                        if (typeof item === 'string') {
+                            let text = item
+                            return (
+                                <Checkbox key={item} id={item} name={`gear${b}`} text={text} handleChange={() => {addGear(item,internalPosition,internalLimit)}} checked={checked}/>
+                            )
+                        }
+                    }))
+                }
             })
         )
     }

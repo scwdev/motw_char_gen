@@ -35,14 +35,14 @@ const History = (props) => {
             })
             const notes = <Notes handleChange={handleNotes} value={newEntry.notes} placeholder='Additional details...' />
             
-            const submit = <Submit value='Add Relationship' handleSubmit={handleSubmit} />
+            // const submit = <Submit id="add-relationship" text='Add Relationship' value='Add Relationship' handleSubmit={handleSubmit} />
             
             return (
                 <form>
                     {name}
                     {relationship}
                     {notes}
-                    <input type='submit' onClick={handleSubmit}/>
+                    {<input type='submit' value={'Add Relationship'} onClick={handleSubmit}/>}
                 </form>
             )
         }
