@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Link } from 'react-router-dom'
 
-import Button from '../../components/button'
 import Radio from '../../components/radio'
 
 const Specials = (props) => {
@@ -24,26 +22,47 @@ const Specials = (props) => {
 
     const loaded = () => {
         let title = null
+        let limit = null
         const parseData = () => {
             return specials.map(m => m.map((item) => {
                 if (typeof item == 'string') {
-                    title = item
-                    return <h3>{item}</h3>
-                } else if (Array.isArray(item) == true) {return item.map((entry, index) => {
-                    if (typeof entry == 'string' && typeof item[index-1] != 'number') 
-                        return <Radio key={index} /*handleChange={handleRadio}*/ id={entry} name={title} value={entry} text={entry} />
-                    else if (typeof entry == 'string' && typeof item[index-1] == 'number') 
-                        console.log("radio won't work for ", item)
-                        // more stuff here
-                    else if (typeof entry == 'object' && Array.isArray(entry) == false ) 
-                        return <Radio key={index} /*handleChange={handleRadio}*/ id={entry.name} name={title} value={entry} text={<><span>{entry.name}</span>: {entry.description}</>} />
+                    title = item.split('_').join(' ')
+                    return <h3>{title}</h3>
+                } else if (Array.isArray(item) == true) {
+                    return item.map((entry, index) => {
+
+                        if (typeof entry == 'string' && typeof item[index-1] != 'number') {
+                            return <Radio key={index} /*handleChange={handleRadio}*/ id={entry} name={title} value={entry} text={entry} />
+                        } else if (typeof entry == 'object' && Array.isArray(entry) == false ) {
+                            return <Radio key={index} /*handleChange={handleRadio}*/ id={entry.name} name={title} value={entry} text={<><span>{entry.name}</span>: {entry.description}</>} />
+                        } else console.log('you missed somthing 1')
                     })
-                } else console.log("object.entries: // ", Object.entries(item))
-                // more stuff here
-                
-                return 'asdf'
+                } 
+                else if (typeof item == 'object') {
+                    return Object.entries(item).map((tup) => {
+
+                        if (typeof tup[1] == 'number') {
+                            limit = tup[1]
+                        } else if (Array.isArray(tup[1]) == true) {
+                            title = tup[0].split('_').join(' ')
+                            let tupArray = tup[1].map((i,d) => {
+                                return <p>{i.name}: {i.description} {i?.harm} {`, (${i.tags?.map((tag) => {return tag.name})})`}</p>
+                                // if (i.description) {
+                                //     return <p>{i.name}: {i.description}</p>
+                                // } else if (i.harm >= 0) {
+                                //     return <p>{i.name}, {i.harm}, ({i.tags.map((tag) => {return tag.name})})</p>
+                                // } else {return <p>{i}</p>}   
+                            })
+                            return (
+                                <div>
+                                    <h4>{title} (pick {limit > 1 ? limit : 1})</h4>
+                                    {tupArray}
+                                </div>
+                            )
+                        } else console.log("you missed something 2")
+                    })
+                } else console.log("you missed somthing 3")
             })
-                
             )
         }
         
@@ -51,30 +70,9 @@ const Specials = (props) => {
             <div>
                 loaded
                 {parseData()}
-            </div>
-            
-            
+            </div>   
         )
     }
-//  expert: haven: [{name:'', description:''}...]
-//  monsterous: curses: [{name: string, description: string} ...]
-//              natural attcks: {slots, [{name: st, type: st, harm: num, tags:[{name: st, url: st}...]} ...]}
-//  sp-slinger: combat magic: {bases: [{name: st, harm: num, tags:[etc]}...],  extras: [name: str, description: str]}
-//  crooken: heat [string, string...]
-//           underwold: [string, string...]
-
-
-//  mundane: n/a
-//  flake: none
-
-//  chosen: fate {['string'], slots, ['string'], slots, ['string']}
-//  wronged: who you lost: {who: [strings...], why: [strings...]}
-//  divine: mission [string, string...]
-
-//  initiate: sect {slots, ['string'], slots, ['string']}
-//  professional: agency: {slots, [string, ...], ...}  
-//  spooky: dark-side: {slots, [strings...]}
-
 
     return(
         <div>

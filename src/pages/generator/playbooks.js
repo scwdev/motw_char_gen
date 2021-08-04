@@ -11,7 +11,7 @@ const Playbooks = (props) => {
     // }
     useEffect(() => {props.apiOrigin != path ?  props.apiCall(path) : console.log('already loaded')}, [])
 
-    console.log('apiData:',props.apiData, 'apiOrigin', props.apiOrigin)
+    // console.log('apiData:',props.apiData, 'apiOrigin', props.apiOrigin)
     const loaded = () => {
         return(
             props.apiData.results.map((item,index) => {
