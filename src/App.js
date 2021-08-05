@@ -12,6 +12,7 @@ import Details from './pages/generator/details';
 import History from './pages/generator/history'
 import Specials from './pages/generator/specials';
 import Nav from './components/nav';
+import Main from './pages/generator/main';
 
 import NewCharacter from './pages/generator/newCharacter';
 import Notes from './components/notes';
@@ -75,6 +76,9 @@ function App() {
       <Nav newChar={newChar} apiCall={apiCall} />
       {hunterName()}
       <Switch>
+        <Route exact path='/'>
+          <Main />  
+        </Route>
         <Route path='/playbooks'>
           <Playbooks apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />    
         </Route>
