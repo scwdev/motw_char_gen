@@ -12,11 +12,12 @@ const Details = (props) => {
     const [details, setDetails] = useState(props.newChar.details)
 
     const loading = () => {return 'Loading...'}
-    
     const loaded = () => {
 
         const pronouns = () => {
-            const handlePronouns = (input) => setDetails({...details, pronouns:input})
+            const handlePronouns = (input) => {
+                setDetails({...details, pronouns:input})
+            }
             return(
                 <Notes handleChange={handlePronouns} value={details.pronouns} placeholder="Hunter pronouns" />
             )
@@ -35,7 +36,7 @@ const Details = (props) => {
                         const newLook = {[title]:option}
                         const addLook = () => {
                             setDetails({...details, look:{...details.look, ...newLook}})
-                            console.log(details)
+                            
                         }
                         return <Radio key={`${title}${index}`} handleChange={addLook} id={`${title}${index}`} name={title} value={option} text={option} />
                     })
@@ -44,38 +45,39 @@ const Details = (props) => {
         }
         
         const notes = () => {
-            const handleNotes = (input) => setDetails({...details, notes:input})
+            const handleNotes = (input) => {
+                setDetails({...details, notes:input})
+
+            }
             return(
                 <Notes handleChange={handleNotes} value={details.notes} placeholder="Hunter notes" />
             )
         }
 
+        const submit = (event) => {
+            // event.preventDefault()
+            props.updateChar({...props.newChar, details:{...details}})
+        }
 
         return (
-            <>
+            <form>
+                
                 {pronouns()}
                 {lookMap()}
                 {notes()}
-            </>
+                <Link to={`/${props.    newChar.path}/history`} >
+                    <input type='submit' value='Next Page' onsubmit={submit}/>
+                </Link>
+            </form>
         )
     }
 
-    const submit = () => {
-        // console.log('submit')
-        props.updateChar({...props.newChar, details:{...details}})
-    //     props.updateChar({...props.newChar, details:{...props.newChar.details, look: newLook}})
-        // props.updateChar({...props.newChar, gear:{...props.newChar.gear, playbook: newGear}})
-        // console.log('text')
-        // console.log(props.newChar)
-    }
+    
 
     return(
         <div>
             <h2>Details Componenet</h2>
             {props.apiOrigin === path ? loaded() : loading()}
-            <Link to={`/${props.newChar.path}/history`} >
-                <Button text='next' handleClick={submit} />
-            </Link>
             
         </div>
     )

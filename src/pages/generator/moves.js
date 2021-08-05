@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Button from '../../components/button'
+import Checkbox from '../../components/checkbox'
 
 /////////////////////////
 
 const Moves = (props) => {
-
+    const [newMoves, setNewMoves] = useState([...props.newChar.moves.playbook])
     //page content currently based on path, not on newChar playbook. Could be a problem
     const path = `/playbooks/${props.match.params.playbook}`
     useEffect(() => {props.apiOrigin != path ?  props.apiCall(path) : console.log('already loaded')}, [])
@@ -14,23 +15,24 @@ const Moves = (props) => {
     // const path = props.match.params.playbook
     // useEffect(() => {
     //     props.apiCall(`/playbooks/${path}`)}, [])
-        
-    let newMoves = []
 
     // Once api call has completed:        
     const loaded = () => {
         const moves = props.apiData.moves
         // stage stand-in array
-        newMoves = [...props.newChar.moves.playbook]
-        
-        
+
         // function to populate required moves and add them to stand-in (if there are any)
         const requiredMoves = () => {
             if (moves.required_move_slots > 0) {
                 return(
                     moves.required_moves.map((item,index) => {
-                        if (newMoves.includes(item.name) == false) {newMoves.push(item.name)}  
-                        return <Button className={'required-moves'} key={index} text={[<h3>{item.name}</h3>, <p>{item.description}</p>]} />
+                        const checked = () => {return true}
+                        if (newMoves.includes(item) !== true) {
+                            setNewMoves([...newMoves, item])
+                        }  
+                        return (
+                            <Checkbox key={index} text={[<h3>{item.name}</h3>, <p>{item.description}</p>]} checked={checked} className={'required-moves'}  />
+                        )
                     })
                 )
             }
@@ -38,23 +40,30 @@ const Moves = (props) => {
         // function to populate optional moves + handler function for adding to stand-in
         const optionalMoves = moves.optional_moves.map((item,index) => {
             //// const buttonSmall = [<h3>{item.name}</h3>]
-            const buttonBig = [<h3>{item.name}</h3>, <p>{item.description}</p>]
-            let buttonText = buttonBig
+            let text = <><span>{item.name}</span>: {item.description}</>
             //handler function
-            const chooseMoves = () => {
-                if (newMoves.includes(item.name) === true) {
-                    newMoves = newMoves.filter((i, d) => (i != item.name))
-                } else if (newMoves.length >= (moves.required_move_slots + moves.optional_move_slots) && newMoves.includes(item.name) === false) {
-                    newMoves.splice(moves.required_move_slots,1)
-                    newMoves.push(item.name)
-                } else if (newMoves.includes(item.name) === false) {
-                    newMoves.push(item.name)
+            const chooseMoves = (e) => {
+                let optMoves = [...newMoves]
+                if (optMoves.includes(item) === true) {
+                    optMoves = optMoves.filter((i, d) => (i != item))
+                } else if (optMoves.length >= (moves.required_move_slots + moves.optional_move_slots) && optMoves.includes(item) === false) {
+                    optMoves.splice(moves.required_move_slots,1)
+                    optMoves.push(item)
+                } else if (optMoves.includes(item) === false) {
+                    optMoves.push(item)
                 }
-                console.log(props.newChar.moves.playbook)
-                //// buttonText == buttonSmall ? buttonText = buttonBig : buttonText = buttonSmall
+                setNewMoves([...optMoves])
+                props.updateChar({...props.newChar, moves:{...props.newChar.moves, playbook:optMoves}})
+                //// text == buttonSmall ? text = buttonBig : text = buttonSmall
+            }
+
+            const checked = () => {
+                if (newMoves.includes(item) == true) {
+                    return true
+                }
             }
             //the Component being mapped
-            return <Button className={'optional-moves'} handleClick={chooseMoves} key={index} text={buttonText} />
+            return <Checkbox  handleChange={chooseMoves} key={item.name} id={item.name} text={text} checked={checked} className={'optional-moves'} />
         })
         // calling the two maps:
         return (
@@ -79,8 +88,6 @@ const Moves = (props) => {
 
     const submit = () => {
         props.updateChar({...props.newChar, moves:{...props.newChar.moves, playbook:newMoves}})
-        props.apiCall()
-        console.log(props.newChar)
     }
 
     return(
@@ -89,7 +96,7 @@ const Moves = (props) => {
             {props.apiOrigin === path ? loaded() : loading()}
             {/* {props.apiData ? loaded() : loading()} */}
             <Link to={`/${props.newChar.path}/ratings`} >
-                <Button handleClick={submit} text='next'/>
+                <Button handleClick={submit} text='Next Page'/>
             </Link>
         </div>
     )

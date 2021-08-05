@@ -32,10 +32,10 @@ const Playbooks = (props) => {
                     )
                 }
                 return(
-                    <>
+                    <form>
                         <Radio key={item.name} id={item.name} name='playbooks' text={item.name} handleChange={handleChange} />
                         {props.newChar.path == item.index ? expandedText() : ''}
-                    </>
+                    </form>
                 )
             })
         }
@@ -56,7 +56,6 @@ const Playbooks = (props) => {
             <Link to={`/${props.newChar.path}/moves`} >
                 <Button /* handleClick={props.apiCall} */ text='next'/>
             </Link>
-            
         </div>
     )
 }

@@ -137,7 +137,6 @@ const Specials = (props) => {
         <div>
             <h2>Specials Componenet</h2>
             {props.apiOrigin === path ? loaded() : loading()}
-
         </div>
     )
 }

@@ -25,7 +25,9 @@ const Ratings = (props) => {
                 }
                 const text = `Charm: ${option.charm}, Cool: ${option.cool}, Sharp: ${option.sharp}, Tough: ${option.tough}, Weird: ${option.weird}`
                 return (
-                    <Radio id={`rating ${index}`} name='ratings' key={index} handleChange={updateRatings} value={option} text={text} />
+                    <>
+                        <Radio id={`rating ${index}`} name='ratings' key={index} handleChange={updateRatings} value={option} text={text} />
+                    </>
                 )
             })
         )

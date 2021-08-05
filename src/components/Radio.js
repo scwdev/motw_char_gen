@@ -16,9 +16,9 @@ const Radio = (props) => {
         </>
     
     return (
-        <div className={`radio-div`}>
-                {radio}
-        </div>
+        <>
+            {radio}
+        </>
         
     )
 }

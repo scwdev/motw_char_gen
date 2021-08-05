@@ -3,8 +3,7 @@ import React, {useRef} from 'react'
 
 const Checkbox = (props) => {
 
-    let checked = false
-    // const checked = null
+
     const handleChange = (event) => {
         if (props.handleChange) {
             props.handleChange(props.value)
@@ -15,10 +14,6 @@ const Checkbox = (props) => {
         }
     }
 
-    const handleLimit = () => {
-        
-    }
-
     const checkbox = 
         <>
             <input onChange={handleChange} type="checkbox" id={props.id} name={props.name} value={props.value} checked={props.checked()}/>
@@ -26,10 +21,9 @@ const Checkbox = (props) => {
         </>
     
     return (
-        <div className={`checkbox-div`}>
-                {checkbox}
-        </div>
-        
+        <>    
+            {checkbox}
+        </>
     )
 }
 

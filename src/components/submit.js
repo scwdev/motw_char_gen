@@ -11,7 +11,7 @@ const Submit = (props) => {
 
     const submit = 
         <>
-            <input type="submit" id={props.id} value={props.value} onClick={handleSubmit}/>
+            <input type="submit" id={props.id} onClick={handleSubmit}/>
             <label for={props.id}>{props.text}</label> <br/>
         </>
     

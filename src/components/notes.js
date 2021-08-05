@@ -14,10 +14,8 @@ const Notes = (props) => {
         </>
     
     return (
-        <div className={`notes-div`}>
-                {notes}
-        </div>
-        
+            {notes}
+
     )
 }
 
