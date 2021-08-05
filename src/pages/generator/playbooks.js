@@ -32,18 +32,18 @@ const Playbooks = (props) => {
                     )
                 }
                 return(
-                    <form>
+                    <>
                         <Radio key={item.name} id={item.name} name='playbooks' text={item.name} handleChange={handleChange} />
                         {props.newChar.path == item.index ? expandedText() : ''}
-                    </form>
+                    </>
                 )
             })
         }
 
         return (
-            <>
+            <form>
                 {playbookMap()}
-            </>
+            </form>
         )
     }
     
@@ -56,7 +56,7 @@ const Playbooks = (props) => {
                 {props.apiOrigin === path ? loaded() : loading()}    
             </section>
             <Link to={`/${props.newChar.path}/moves`} >
-                <Button /* handleClick={props.apiCall} */ text='next'/>
+                <Button /* handleClick={props.apiCall} */ text='Next Page'/>
             </Link>
         </div>
     )

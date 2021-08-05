@@ -101,12 +101,12 @@ const Gear = (props) => {
 
     return(
         <div className='page'>
-            <h2>Gear Componenet</h2>
+            <h2>Your gear:</h2>
             <section className='scroll'>
                 {props.apiOrigin === path ? loaded() : loading()}
             </section>
             <Link to={`/${props.newChar.path}/details`} >
-                <Button text='Next' handleClick={submit} />
+                <Button text='Next Page' handleClick={submit} />
             </Link>
         </div>
     )

@@ -12,7 +12,8 @@ const Radio = (props) => {
     const radio = 
         <>
             <input onChange={handleChange} type="radio" id={props.id} name={props.name} value={props.value} />
-            <label for={props.id}>{props.text}</label>
+            <label for={props.id}>{props.text}
+            </label>
         </>
     
     return (

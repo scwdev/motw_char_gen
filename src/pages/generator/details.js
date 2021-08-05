@@ -54,31 +54,34 @@ const Details = (props) => {
             )
         }
 
-        const submit = (event) => {
-            // event.preventDefault()
-            props.updateChar({...props.newChar, details:{...details}})
-        }
+        
 
         return (
             <form>
                 {pronouns()}
                 {lookMap()}
                 {notes()}
-                <Link to={`/${props.newChar.path}/history`} >
-                    <input type='submit' value='Next Page' onsubmit={submit}/>
-                </Link>
             </form>
         )
     }
 
-    
+    const submit = (event) => {
+        // event.preventDefault()
+        props.updateChar({...props.newChar, details:{...details}})
+    }    
 
     return(
         <div className='page'>
-            <h2>Details Componenet</h2>
+            <h2>
+                Your details:
+            </h2>
             <section className='scroll'>
                 {props.apiOrigin === path ? loaded() : loading()}
             </section>
+            <Link to={`/${props.newChar.path}/history`} >
+                <Button type='submit' text='Next Page' value='Next Page' handleClick={submit}/>
+            </Link>
+
 
         </div>
     )

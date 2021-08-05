@@ -25,9 +25,7 @@ const Ratings = (props) => {
                 }
                 const text = `Charm: ${option.charm}, Cool: ${option.cool}, Sharp: ${option.sharp}, Tough: ${option.tough}, Weird: ${option.weird}`
                 return (
-                    <>
                         <Radio id={`rating ${index}`} name='ratings' key={index} handleChange={updateRatings} value={option} text={text} />
-                    </>
                 )
             })
         )
@@ -39,12 +37,14 @@ const Ratings = (props) => {
 
     return(
         <div className='page'>
-            <h2>Ratings Componenet</h2>
+            <h2>Your rating:</h2>
             <section className='scroll'>
-                {props.apiOrigin === path ? loaded() : loading()}
+                <form>
+                    {props.apiOrigin === path ? loaded() : loading()}
+                </form>
             </section>
             <Link to={`/${props.newChar.path}/gear`} >
-                <Button handleClick={submit} text='next'/>
+                <Button handleClick={submit} text='Next Page'/>
             </Link>
         </div>
     )

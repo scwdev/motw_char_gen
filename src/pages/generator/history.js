@@ -51,7 +51,7 @@ const History = (props) => {
             return historyArr.map((item,index) => {
                 console.log(item)
                 return(
-                    <div>
+                    <div className='history-div'>
                         <h3>{item.name}</h3>
                         <h5>{item.relationship}</h5>
                         <p>{item.notes}</p>
@@ -74,12 +74,12 @@ const History = (props) => {
 
     return(
         <div className='page'>
-            <h2>History Componenet</h2>
+            <h2>Your relationships:</h2>
             <section className='scroll'>
                 {props.apiOrigin === path ? loaded() : loading()}  
             </section>
             <Link to={`/${props.newChar.path}/specials`} >
-                <Button handleClick={nextPage} text='next'/>
+                <Button handleClick={nextPage} text='Next Page'/>
             </Link>
             
         </div>

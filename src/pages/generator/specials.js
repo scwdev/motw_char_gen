@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import Checkbox from '../../components/checkbox'
+import { Link } from 'react-router-dom'
 
+import Checkbox from '../../components/checkbox'
 import Radio from '../../components/radio'
+import Button from '../../components/button'
 
 const Specials = (props) => {
     const [specials, setSpecials] = useState([])
@@ -38,7 +40,7 @@ const Specials = (props) => {
                     title = item
                     titleString = title.split('_').join(' ')
                     // setNewSpecials({...newSpecials, title: null})
-                    return <h3>{titleString}</h3>
+                    return <h2>{titleString.charAt(0).toUpperCase()+titleString.slice(1)}:</h2>
                 } else if (Array.isArray(item) == true) {
                     return item.map((entry, index) => {
                         const keyValue = {[title]:entry}
@@ -127,18 +129,24 @@ const Specials = (props) => {
         
         return(
             <div>
-                loaded
                 {parseData()}
             </div>   
         )
     }
 
+
+    const submit = () => {
+
+    }
+    
     return(
         <div className='page'>
-            <h2>Specials Componenet</h2>
             <section className='scroll'>
                 {props.apiOrigin === path ? loaded() : loading()}
             </section>
+            <Link to={`/newCharacter`} >
+                <Button handleClick={submit} text='Finish Character'/>
+            </Link>
         </div>
     )
 }

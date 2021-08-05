@@ -6,34 +6,34 @@ const NewCharacter = (props) => {
 
     const name = () => {
         return (
-            <h1>{placeholder.details.name}</h1>
+            <h1>{props?.newChar?.details.name}</h1>
         )
     }
     const playbook = () => {
         return (
-            <h2>{placeholder.playbook}</h2>
+            <h2>{props?.newChar?.playbook}</h2>
         )
     }
     const ratings = () => {
         return (
             <section>
                 <h5>Charm:</h5>
-                <h3>{placeholder.ratings.charm}</h3>
+                <h3>{props?.newChar?.ratings?.charm}</h3>
                 <h5>Cool:</h5>
-                <h3>{placeholder.ratings.cool}</h3>
+                <h3>{props?.newChar?.ratings?.cool}</h3>
                 <h5>Sharp:</h5>
-                <h3>{placeholder.ratings.sharp}</h3>
+                <h3>{props?.newChar?.ratings?.sharp}</h3>
                 <h5>Tough:</h5>
-                <h3>{placeholder.ratings.tough}</h3>
+                <h3>{props?.newChar?.ratings?.tough}</h3>
                 <h5>Weird:</h5>
-                <h3>{placeholder.ratings.weird}</h3>
+                <h3>{props?.newChar?.ratings?.weird}</h3>
             </section>
             
         )
     }
     const moves = () => {
         const moveMap = () => {
-            return placeholder.moves.playbook.map((item,index) => {
+            return props?.newChar?.moves.playbook.map((item,index) => {
                 return (
                     <div>
                         <h4>{item.name}</h4>

@@ -39,8 +39,16 @@ const Moves = (props) => {
         }
         // function to populate optional moves + handler function for adding to stand-in
         const optionalMoves = moves.optional_moves.map((item,index) => {
-            //// const buttonSmall = [<h3>{item.name}</h3>]
-            let text = <><span>{item.name}</span>: {item.description}</>
+            
+            const expandedText = () => {
+                if (newMoves.includes(item) == true) {
+                    return (
+                        <p>{item.description}</p>
+                    )
+                }
+            }
+
+            let text = <><span>{item.name}</span>{expandedText()}</>
             //handler function
             const chooseMoves = (e) => {
                 let optMoves = [...newMoves]
@@ -52,6 +60,7 @@ const Moves = (props) => {
                 } else if (optMoves.includes(item) === false) {
                     optMoves.push(item)
                 }
+                // console.log(optMoves)
                 setNewMoves([...optMoves])
                 props.updateChar({...props.newChar, moves:{...props.newChar.moves, playbook:optMoves}})
                 //// text == buttonSmall ? text = buttonBig : text = buttonSmall
@@ -62,14 +71,21 @@ const Moves = (props) => {
                     return true
                 }
             }
+
+
             //the Component being mapped
-            return <Checkbox  handleChange={chooseMoves} key={item.name} id={item.name} text={text} checked={checked} className={'optional-moves'} />
+            return (
+                <Checkbox  handleChange={chooseMoves} key={item.name} id={item.name} text={text} checked={checked} className={'optional-moves'} />
+
+            )
         })
         // calling the two maps:
         return (
             <>
-                {/* { ? null :'<h2>{moves.required_move_slots} Required Moves</h2>'{requiredMoves}
-                } */}
+                {/* <h2>The {props.apiData.index.charAt(0).toUpperCase()+path.slice(1)} Moves</h2> */}
+                <h2>
+                Your moves:
+                </h2>
                 {requiredMoves()}
                 <h2>Choose any additional {moves.optional_move_slots}:</h2>
                 {optionalMoves}
@@ -92,7 +108,6 @@ const Moves = (props) => {
 
     return(
         <div className='page'>
-            <h2>The {path.charAt(0).toUpperCase()+path.slice(1)} Moves</h2>
             <section className='scroll'>
                 {props.apiOrigin === path ? loaded() : loading()}
             </section>

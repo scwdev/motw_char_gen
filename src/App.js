@@ -14,6 +14,7 @@ import Specials from './pages/generator/specials';
 import Nav from './components/nav';
 
 import NewCharacter from './pages/generator/newCharacter';
+import Notes from './components/notes';
 
 
 
@@ -58,11 +59,21 @@ function App() {
     })
 
   // console.log(newChar)
+  const hunterName = () => {
+    const handleName = (input) => {
+      setNewChar({...newChar, details:{...newChar.details, name:input}})
+  }
+    return (
+      <Notes handleChange={handleName} value={newChar.details.name} placeholder="Your hunter's name" />
+    )
+  }
+  
 
   return (
     <div className="App">
-      <h1>App Component</h1>
+      <h3>Monster of the Week<br/>Character Generator</h3>
       <Nav newChar={newChar} apiCall={apiCall} />
+      {hunterName()}
       <Switch>
         <Route path='/playbooks'>
           <Playbooks apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />    
@@ -110,8 +121,8 @@ function App() {
         }}
         />
       </Switch>
-      
-      
+      <footer>Monster of the Week designed by Michael Sands and Steve Hickey.<br/>This app created by Noam Blanks.<br/>MOTWAPI created by Sam McCall.</footer>
+
     </div>
   );
 }
