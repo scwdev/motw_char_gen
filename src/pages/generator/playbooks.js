@@ -9,7 +9,7 @@ const Playbooks = (props) => {
 
     // if (props.apiOrigin != path) {
     //     props.apiCall(path)
-    // }
+    // }test
     useEffect(() => {props.apiOrigin != path ?  props.apiCall(path) : console.log('already loaded')}, [])
 
     // console.log('apiData:',props.apiData, 'apiOrigin', props.apiOrigin)
