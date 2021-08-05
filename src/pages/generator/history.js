@@ -73,9 +73,11 @@ const History = (props) => {
     }
 
     return(
-        <div>
+        <div className='page'>
             <h2>History Componenet</h2>
-            {props.apiOrigin === path ? loaded() : loading()}
+            <section className='scroll'>
+                {props.apiOrigin === path ? loaded() : loading()}  
+            </section>
             <Link to={`/${props.newChar.path}/specials`} >
                 <Button handleClick={nextPage} text='next'/>
             </Link>

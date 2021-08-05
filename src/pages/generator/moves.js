@@ -91,10 +91,11 @@ const Moves = (props) => {
     }
 
     return(
-        <div>
+        <div className='page'>
             <h2>The {path.charAt(0).toUpperCase()+path.slice(1)} Moves</h2>
-            {props.apiOrigin === path ? loaded() : loading()}
-            {/* {props.apiData ? loaded() : loading()} */}
+            <section className='scroll'>
+                {props.apiOrigin === path ? loaded() : loading()}
+            </section>
             <Link to={`/${props.newChar.path}/ratings`} >
                 <Button handleClick={submit} text='Next Page'/>
             </Link>

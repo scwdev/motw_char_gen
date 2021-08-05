@@ -74,10 +74,12 @@ const Details = (props) => {
     
 
     return(
-        <div>
+        <div className='page'>
             <h2>Details Componenet</h2>
-            {props.apiOrigin === path ? loaded() : loading()}
-            
+            <section className='scroll'>
+                {props.apiOrigin === path ? loaded() : loading()}
+            </section>
+
         </div>
     )
 }

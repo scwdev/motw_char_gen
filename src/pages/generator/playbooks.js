@@ -50,9 +50,11 @@ const Playbooks = (props) => {
     
     
     return(
-        <div>
+        <div className='page'>
             <h2>Playbooks Component</h2>
-            {props.apiOrigin === path ? loaded() : loading()}
+            <section className='scroll'>
+                {props.apiOrigin === path ? loaded() : loading()}    
+            </section>
             <Link to={`/${props.newChar.path}/moves`} >
                 <Button /* handleClick={props.apiCall} */ text='next'/>
             </Link>

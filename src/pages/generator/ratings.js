@@ -38,10 +38,11 @@ const Ratings = (props) => {
     }
 
     return(
-        <div>
+        <div className='page'>
             <h2>Ratings Componenet</h2>
-            {props.apiOrigin === path ? loaded() : loading()}
-            {/* {props.apiData ? loaded() : loading()} */}
+            <section className='scroll'>
+                {props.apiOrigin === path ? loaded() : loading()}
+            </section>
             <Link to={`/${props.newChar.path}/gear`} >
                 <Button handleClick={submit} text='next'/>
             </Link>
