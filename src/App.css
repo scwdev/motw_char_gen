@@ -48,7 +48,7 @@ label:hover {
 }
 
 input[type=radio]:checked + label, input[type=checkbox]:checked + label{
-  background-color: lightgrey;
+  background-image: linear-gradient(0.25turn, rgba(220,220,220,.5),rgba(220,220,220,.75),rgba(220,220,220,1),rgba(220,220,220,1),rgba(220,220,220,.75),rgba(220,220,220,.5));
   border: 2px solid black;
 }
 
