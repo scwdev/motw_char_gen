@@ -72,11 +72,11 @@ button, input[type=submit] {
   display: inline-block;
 }
 
-footer {
+/* footer {
   position: absolute;
   bottom: 0px;
   left: 0px;
   display: inline-block;
   width: 100%;
 
-}
+} */

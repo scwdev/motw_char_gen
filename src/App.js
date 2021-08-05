@@ -121,7 +121,7 @@ function App() {
         }}
         />
       </Switch>
-      <footer>Monster of the Week designed by Michael Sands and Steve Hickey.<br/>This app created by Noam Blanks.<br/>MOTWAPI created by Sam McCall.</footer>
+      <footer>Monster of the Week designed by Michael Sands and Steve Hickey.<br/>This app created by Noam Blanks. MOTWAPI created by Sam McCall.</footer>
 
     </div>
   );
