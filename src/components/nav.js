@@ -26,6 +26,9 @@ const Nav = (props) => {
             <Link to={`/${props.newChar.path}/specials`}>
                 Specials
             </Link>
+            <Link to={`/newCharacter`}>
+                NewCharacter
+            </Link>
             
             {/* <Link>
                 

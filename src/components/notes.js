@@ -14,7 +14,10 @@ const Notes = (props) => {
         </>
     
     return (
+        <>
             {notes}
+        </>
+        
 
     )
 }

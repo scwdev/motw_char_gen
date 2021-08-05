@@ -61,11 +61,10 @@ const Details = (props) => {
 
         return (
             <form>
-                
                 {pronouns()}
                 {lookMap()}
                 {notes()}
-                <Link to={`/${props.    newChar.path}/history`} >
+                <Link to={`/${props.newChar.path}/history`} >
                     <input type='submit' value='Next Page' onsubmit={submit}/>
                 </Link>
             </form>

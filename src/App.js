@@ -13,6 +13,8 @@ import History from './pages/generator/history'
 import Specials from './pages/generator/specials';
 import Nav from './components/nav';
 
+import NewCharacter from './pages/generator/newCharacter';
+
 
 
 
@@ -99,6 +101,12 @@ function App() {
         path='/:playbook/specials'
         render={(routerProps) => {
           return <Specials {...routerProps} apiData={apiData.data} apiOrigin={apiData.origin} apiCall={apiCall} newChar={newChar} updateChar={setNewChar} />
+        }}
+        />
+        <Route
+        path='/newCharacter'
+        render={(routerProps) => {
+          return <NewCharacter {...routerProps} newChar={newChar} updateChar={setNewChar} />
         }}
         />
       </Switch>
