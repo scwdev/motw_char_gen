@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom'
 
 import Button from '../../components/button'
-import Radio from '../../components/radio'
+// import Radio from '../../components/radio'
 
 const Playbooks = (props) => {
     const path = '/playbooks'
@@ -33,7 +33,7 @@ const Playbooks = (props) => {
                 }
                 return(
                     <form>
-                        <Radio key={item.name} id={item.name} name='playbooks' text={item.name} handleChange={handleChange} />
+                        {/* <Radio key={item.name} id={item.name} name='playbooks' text={item.name} handleChange={handleChange} /> */}
                         {props.newChar.path == item.index ? expandedText() : ''}
                     </form>
                 )
